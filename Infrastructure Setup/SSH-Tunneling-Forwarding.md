@@ -37,7 +37,7 @@ Breakdown:
 ```text
 -L
 8080             → Listen on port 8080 on the attacker
-10.10.20.50     → Destination from the SSH server's perspective
+10.10.20.50      → Destination from the SSH server's perspective
 80               → Destination port
 user@10.10.10.10 → SSH server
 ```
@@ -95,7 +95,7 @@ Breakdown:
 ```text
 -R
 8080          → Listen on port 8080 on the SSH server
-127.0.0.1    → Destination from the SSH client's perspective
+127.0.0.1     → Destination from the SSH client's perspective
 80            → Destination port
 ```
 
@@ -125,7 +125,7 @@ This is useful when a service accessible from the SSH client needs to be exposed
 A common forwarding pattern:
 
 ```bash
-ssh -R 0.0.0.0:443:127.0.0.1:8080 <user>@<ip>
+ssh -R 0.0.0.0:443:127.0.0.1:8080 <user-name>@<ip-address>
 ```
 
 Breakdown:
@@ -139,7 +139,7 @@ Breakdown:
     │
     └── Forward traffic to port 8080 from the SSH client's perspective
 
-<user>@<ip>
+<user-name>@<ip-address>
     │
     └── SSH server
 ```
@@ -220,7 +220,7 @@ GatewayPorts yes
 This is particularly relevant when using:
 
 ```bash
-ssh -R 0.0.0.0:443:127.0.0.1:8080 <user>@<ip>
+ssh -R 0.0.0.0:443:127.0.0.1:8080 <user-name>@<ip-address>
 ```
 
 Without an appropriate `GatewayPorts` setting, the server may restrict the remote forward to loopback.
@@ -258,7 +258,7 @@ Keep an existing SSH session open while testing the new configuration to avoid l
 Dynamic forwarding creates a SOCKS proxy.
 
 ```bash
-ssh -D 1080 <user>@<ip>
+ssh -D 1080 <user-name>@<ip-address>
 ```
 
 This makes the SSH client listen locally on:
@@ -305,7 +305,7 @@ proxychains nmap -sT -Pn <target>
 For example:
 
 ```bash
-ssh -D 1080 <user>@<ip>
+ssh -D 1080 <user-name>@<ip-address>
 ```
 
 Then:
