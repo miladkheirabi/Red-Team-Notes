@@ -1,4 +1,4 @@
-# iptables
+# IPTables
 
 `iptables` is a Linux firewall utility used to control, inspect, modify, and forward network traffic.
 
