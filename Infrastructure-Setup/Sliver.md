@@ -188,14 +188,145 @@ ss -lntup
 
 Remember that a listening socket does not necessarily mean the service is reachable externally. Firewall rules, routing, NAT, and the address on which the service is bound all affect reachability.
 
-## 7. Sliver Architecture: Conceptual Overview
+## Sliver
 
-Sliver separates several responsibilities:
+[Sliver](https://github.com/BishopFox/sliver) is an open-source Command and Control (C2) framework designed for authorized security assessments and Red Team operations.
 
-- **Server:** Runs the C2 infrastructure and manages operator interactions.
-- **Client:** Provides the operator interface to the server.
-- **Listener:** Represents a network endpoint used by the framework.
-- **Redirector:** An intermediary network host that relays traffic.
-- **Session:** Represents an active connection managed by the framework.
+It provides an infrastructure for managing agents, communication channels, and operator interactions.
 
-For an authorized lab, keep management interfaces isolated, use dedicated virtual networks, and monitor both the redirector and the endpoint. Avoid exposing management services to the public Internet.
+### 1. Sliver Server
+
+Sliver uses a client-server architecture.
+
+- **Sliver Server:** The central component responsible for managing the C2 infrastructure and connected sessions.
+- **Sliver Client:** The operator interface used to interact with the server.
+- **Implant:** The agent running on an endpoint and communicating with the C2 infrastructure.
+- **Listener:** A network service that accepts incoming connections from implants.
+- **Session:** An active connection established by an implant.
+- **Redirector:** An intermediary host that relays network traffic between an endpoint and the C2 infrastructure.
+
+The server binary can be launched from a Linux terminal:
+
+```bash
+sudo ./sliver-server_linux-amd64
+```
+
+Use the following commands inside the Sliver console to inspect the available functionality:
+
+```text
+help
+version
+info
+```
+
+### 2. Communication Protocols
+
+Sliver supports multiple communication protocols. The choice of protocol affects how implants communicate with the server.
+
+#### HTTP
+
+HTTP is an application-layer protocol used to transfer data between clients and servers.
+
+#### HTTPS
+
+HTTPS uses TLS to encrypt HTTP communication between endpoints.
+
+Encryption protects the contents of network traffic from passive inspection, but it does not make the communication inherently undetectable.
+
+#### Multiplayer
+
+Multiplayer functionality allows multiple operators to work with the same Sliver infrastructure.
+
+This is useful when several team members need access to a shared C2 environment.
+
+### 3. Implant Generation
+
+An implant is the endpoint-side component responsible for communicating with the Sliver infrastructure.
+
+Sliver supports different communication profiles and transport mechanisms. The selected transport determines how the implant communicates with its configured server infrastructure.
+
+An important distinction:
+
+- The **server** manages the infrastructure.
+- The **implant** runs on the endpoint.
+- The **client** provides the operator interface.
+
+Implant generation and deployment should only be performed in an isolated, explicitly authorized lab.
+
+### 4. Endpoint Security Considerations
+
+Security products such as Microsoft Defender may identify known Sliver binaries through signatures or behavioral detection.
+
+For controlled testing, do not disable endpoint protection on a normal workstation or production system.
+
+Instead, use a disposable Windows virtual machine with:
+
+- An isolated virtual network.
+- No access to production systems.
+- A snapshot that can be restored.
+- Controlled network access.
+- Endpoint protection enabled wherever possible.
+
+This allows detection behavior to be observed without weakening the security of the host environment.
+
+### 5. Understanding Sessions
+
+A session represents an active connection between an implant and the Sliver infrastructure.
+
+When a connection is established, the framework can report the new session to the operator.
+
+The Sliver console provides session-management functionality, including:
+
+- Listing active sessions.
+- Inspecting session metadata.
+- Monitoring connection status.
+- Identifying the endpoint associated with a session.
+
+A session is not the same as a listener: a listener accepts incoming connections, while a session represents an established connection.
+
+### 6. Redirector Architecture
+
+A redirector is an intermediary server used to relay network traffic between the endpoint and the actual C2 infrastructure.
+
+Using a separate redirector can help isolate the C2 server from direct exposure.
+
+A simplified architecture looks like this:
+
+```text
+Windows Lab VM
+      |
+      | Network Communication
+      |
+      v
+  Redirector VPS
+      |
+      | Forwarded Traffic
+      |
+      v
+  Sliver Server
+      |
+      v
+  Operator Client
+```
+
+The redirector should be treated as an exposed infrastructure component and hardened accordingly.
+
+Important considerations include:
+
+- Restricting administrative access.
+- Minimizing exposed services.
+- Monitoring incoming connections.
+- Keeping management interfaces private.
+- Maintaining firewall rules and system updates.
+
+### 7. Further Reading
+
+- [Sliver Official Repository](https://github.com/BishopFox/sliver)
+- [Sliver Documentation](https://sliver.sh/)
+- [Microsoft Defender Documentation](https://learn.microsoft.com/en-us/defender-endpoint/)
+
+---
+
+| ← Previous Topic |
+|:---|
+| [TCPDump & TCPReplay](TCPDump-TCPReplay.html) |

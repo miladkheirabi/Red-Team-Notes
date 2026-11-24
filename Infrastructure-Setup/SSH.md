@@ -112,3 +112,9 @@ scp -i ~/.ssh/<key_name> <local_file> <username>@<target_ip>:/tmp/
 ```
 
 `scp` uses SSH for authentication and transport, so the same SSH keys, host-key verification, and SSH configuration apply.
+
+---
+
+| ← Previous Topic | Next Topic → |
+|:---|---:|
+| [SSH Key Setup](SSH-Key-Setup.html) | [SSH Tunneling](SSH-Tunneling-Forwarding.html) |
