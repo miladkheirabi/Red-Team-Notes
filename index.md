@@ -8,58 +8,35 @@ description: Practical cybersecurity notes, infrastructure guides, and hands-on 
 
 ### Practical Knowledge. Real-World Security.
 
-Welcome to **ExploitLab** — a growing collection of technical notes, practical guides, and hands-on research focused on cybersecurity, penetration testing, and Red Team operations.
+Welcome to **ExploitLab** — an independent knowledge base documenting practical techniques, tools, and lessons from the world of cybersecurity and Red Team operations.
 
-This project is built around a simple idea: **learn by doing, document what matters, and make technical knowledge accessible.**
-
----
-
-## About This Project
-
-ExploitLab is an independent technical knowledge base dedicated to documenting tools, techniques, configurations, and lessons learned throughout the process of exploring cybersecurity.
-
-Rather than focusing on theoretical explanations alone, the goal is to provide practical, reproducible references that can be useful during security assessments, lab environments, and day-to-day technical work.
-
-The content is continuously evolving, with an emphasis on:
-
-- Practical examples and command-line workflows.
-- Infrastructure configuration and administration.
-- Network analysis and troubleshooting.
-- Offensive security tools and techniques.
-- Clear explanations of how things work under the hood.
+**Learn by doing. Understand how things work. Document what matters.**
 
 ---
 
-## Knowledge Base
+## About ExploitLab
 
-Explore the documentation by topic.
+ExploitLab is a continuously evolving collection of technical notes and practical guides built around real-world security concepts and hands-on experimentation.
 
-### Infrastructure Setup
+The goal is not simply to collect commands or reproduce existing tutorials, but to understand the underlying mechanisms and document knowledge in a clear, practical, and reusable way.
 
-Guides for preparing, configuring, and managing the infrastructure and tools used in security operations.
+### Areas of Focus
 
-**Available topics:**
-
-- [SSH Key Setup](Infrastructure-Setup/SSH-Key-Setup.md)
-- [SSH Fundamentals](Infrastructure-Setup/SSH.md)
-- [SSH Tunneling & Port Forwarding](Infrastructure-Setup/SSH-Tunneling-Forwarding.md)
-- [TCPDump & TCPReplay](Infrastructure-Setup/TCPDump-TCPReplay.md)
-- [Screen](Infrastructure-Setup/Screen.md)
-- [IPTables](Infrastructure-Setup/IPTables.md)
-- [Service Manipulation](Infrastructure-Setup/Service-Manipulation.md)
-- [Sliver](Infrastructure-Setup/Sliver.md)
-
-### Initial Access
-
-*Coming soon.*
+- **Infrastructure & Networking** — Configuration, administration, and troubleshooting.
+- **Offensive Security** — Penetration testing methodologies and practical techniques.
+- **Security Tools** — Understanding and using tools in controlled environments.
+- **Technical Research** — Exploring vulnerabilities, protocols, and system behavior.
 
 ---
 
-## Philosophy
+## Documentation Principles
 
-Good security knowledge should be practical, understandable, and reusable.
+The content follows a few simple principles:
 
-ExploitLab aims to be a continuously improving reference — not a collection of copy-pasted commands, but a place to understand the tools, the underlying mechanisms, and the reasoning behind each technique.
+- Practical examples over unnecessary theory.
+- Reproducible commands and configurations.
+- Clear explanations of underlying mechanisms.
+- Concise notes designed for future reference.
 
 ---
 

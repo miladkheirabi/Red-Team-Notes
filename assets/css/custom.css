@@ -140,3 +140,7 @@ a:hover {
         overflow-y: auto;
     }
 }
+
+.page-shell > main {
+    padding-top: 28px;
+}
