@@ -144,7 +144,3 @@ chmod 600 ~/.ssh/authorized_keys
 ssh -i ~/.ssh/<key_name> <username>@<target_ip>
 ```
 ---
-
-| Next Topic → |
-|---:|
-| [SSH](SSH.html) |

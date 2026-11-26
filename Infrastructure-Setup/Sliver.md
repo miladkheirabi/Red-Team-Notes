@@ -326,7 +326,3 @@ Important considerations include:
 - [Microsoft Defender Documentation](https://learn.microsoft.com/en-us/defender-endpoint/)
 
 ---
-
-| ← Previous Topic |
-|:---|
-| [TCPDump & TCPReplay](TCPDump-TCPReplay.html) |

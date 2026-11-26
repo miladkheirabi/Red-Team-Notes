@@ -386,8 +386,4 @@ tcpreplay --loop=10 -i eth0 capture.pcap
 # Infinite replay
 tcpreplay --loop=0 -i eth0 capture.pcap
 ```
----
-
-| ← Previous Topic | Next Topic → |
-|:---|---:|
 | [IPTables](IPTables.html) | [Sliver](Sliver.html)

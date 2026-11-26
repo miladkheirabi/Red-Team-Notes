@@ -324,7 +324,3 @@ screen -dmS name <command>
 screen -S name -X quit
 ```
 ---
-
-| ← Previous Topic | Next Topic → |
-|:---|---:|
-| [SSH Tunneling](SSH-Tunneling-Forwarding.html) | [IPTables](IPTables.html) |

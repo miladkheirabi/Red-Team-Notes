@@ -792,9 +792,3 @@ Outgoing local traffic
 ```
 
 If you understand **chains + policies + tables + packet direction**, most `iptables` commands become much easier to read.
-
----
-
-| ← Previous Topic | Next Topic → |
-|:---|---:|
-| [Service Manipulation](Service-Manipulation.html) | [TCPDump & TCPReplay](TCPDump-TCPReplay.html) |

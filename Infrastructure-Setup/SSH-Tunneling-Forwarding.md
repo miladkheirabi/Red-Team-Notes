@@ -362,7 +362,3 @@ sudo systemctl restart ssh
 sudo systemctl restart sshd
 ```
 ---
-
-| ← Previous Topic | Next Topic → |
-|:---|---:|
-| [SSH](SSH.html) | [Screen](Screen.html) |

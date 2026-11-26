@@ -261,7 +261,3 @@ systemctl restart sshd
 systemctl reload sshd
 ```
 ---
-
-| ← Previous Topic | Next Topic → |
-|:---|---:|
-| [Screen](Screen.html) | [IPTables](IPTables.html) |
