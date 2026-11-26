@@ -14,9 +14,22 @@
 </head>
 
 <body>
+  <!-- Mobile menu controls -->
+  <button class="mobile-menu-toggle"
+          type="button"
+          aria-label="Open navigation menu"
+          aria-expanded="false"
+          aria-controls="site-sidebar">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <div class="mobile-menu-overlay"></div>
+
   <div class="page-shell">
 
-    <aside class="sidebar">
+    <aside class="sidebar" id="site-sidebar">
       <div class="sidebar-title">EXPLOITLAB</div>
 
       <nav aria-label="Main navigation">
@@ -30,7 +43,6 @@
           <summary>Infrastructure Setup</summary>
 
           <div class="nested">
-
             <a href="{{ '/Infrastructure-Setup/SSH-Key-Setup.html' | relative_url }}"
                {% if page.url contains 'SSH-Key-Setup' %}class="active"{% endif %}>
               SSH Key Setup
@@ -63,7 +75,7 @@
 
             <a href="{{ '/Infrastructure-Setup/TCPDump-TCPReplay.html' | relative_url }}"
                {% if page.url contains 'TCPDump-TCPReplay' %}class="active"{% endif %}>
-              TCPDump & TCPReplay
+              TCPDump &amp; TCPReplay
             </a>
 
             <a href="{{ '/Infrastructure-Setup/Sliver.html' | relative_url }}"
@@ -73,24 +85,35 @@
           </div>
         </details>
 
-        <details>
-          <summary>Initial Access</summary>
-          <div class="nested">
-            <div class="coming-soon">Coming soon</div>
-          </div>
-        </details>
-
-        <details>
+        <details {% if page.url contains '/Situational-Awareness/' %}open{% endif %}>
           <summary>Situational Awareness</summary>
+
           <div class="nested">
-            <div class="coming-soon">Coming soon</div>
+            <a href="{{ '/Situational-Awareness/Windows-System-Enumeration.html' | relative_url }}"
+               {% if page.url contains 'Windows-System-Enumeration' %}class="active"{% endif %}>
+              Windows System Enumeration
+            </a>
+
+            <a href="{{ '/Situational-Awareness/Windows-Environment-and-File-System.html' | relative_url }}"
+               {% if page.url contains 'Windows-Environment-and-File-System' %}class="active"{% endif %}>
+              Windows Environment &amp; File System
+            </a>
+
+            <a href="{{ '/Situational-Awareness/Windows-Services-Enumeration.html' | relative_url }}"
+               {% if page.url contains 'Windows-Services-Enumeration' %}class="active"{% endif %}>
+              Windows Services Enumeration
+            </a>
           </div>
         </details>
 
-        <details>
+        <details {% if page.url contains '/User-Level-Persistence/' %}open{% endif %}>
           <summary>User-Level Persistence</summary>
+
           <div class="nested">
-            <div class="coming-soon">Coming soon</div>
+            <a href="{{ '/User-Level-Persistence/Windows-Registry-Autoruns.html' | relative_url }}"
+               {% if page.url contains 'Windows-Registry-Autoruns' %}class="active"{% endif %}>
+              Windows Registry Autoruns
+            </a>
           </div>
         </details>
 
@@ -112,6 +135,58 @@
 
   </div>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const sidebar = document.querySelector('.sidebar');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      const overlay = document.querySelector('.mobile-menu-overlay');
+      const navLinks = sidebar.querySelectorAll('a');
+
+      function openMenu() {
+        sidebar.classList.add('is-open');
+        overlay.classList.add('is-visible');
+        toggle.classList.add('is-active');
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.setAttribute('aria-label', 'Close navigation menu');
+        document.body.classList.add('menu-open');
+      }
+
+      function closeMenu() {
+        sidebar.classList.remove('is-open');
+        overlay.classList.remove('is-visible');
+        toggle.classList.remove('is-active');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Open navigation menu');
+        document.body.classList.remove('menu-open');
+      }
+
+      toggle.addEventListener('click', function () {
+        if (sidebar.classList.contains('is-open')) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+
+      overlay.addEventListener('click', closeMenu);
+
+      navLinks.forEach(function (link) {
+        link.addEventListener('click', closeMenu);
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          closeMenu();
+        }
+      });
+
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 850) {
+          closeMenu();
+        }
+      });
+    });
+  </script>
+
 </body>
 </html>
-
