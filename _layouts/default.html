@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en-US' }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet"
+        href="{{ '/assets/css/style.css' | relative_url }}">
+
+  {% include head-custom.html %}
+  {% seo %}
+</head>
+
+<body>
+
+  <header>
+    <div class="container">
+      <a id="a-title" href="{{ '/' | relative_url }}">
+        <h1>{{ site.title | default: site.github.repository_name }}</h1>
+      </a>
+
+      <h2>{{ site.description | default: site.github.project_tagline }}</h2>
+
+      <section id="downloads">
+        {% if site.show_downloads %}
+          <a href="{{ site.github.zip_url }}" class="btn">Download as .zip</a>
+          <a href="{{ site.github.tar_url }}" class="btn">Download as .tar.gz</a>
+        {% endif %}
+
+        <a href="{{ site.github.repository_url }}" class="btn btn-github">
+          <span class="icon"></span>View on GitHub
+        </a>
+      </section>
+    </div>
+  </header>
+
+  <div class="page-shell">
+
+    <aside class="sidebar">
+      <div class="sidebar-title">EXPLOITLAB</div>
+
+      <nav aria-label="Main navigation">
+
+        <a href="{{ '/' | relative_url }}"
+           {% if page.url == '/' %}class="active"{% endif %}>
+          Home
+        </a>
+
+        <details {% if page.url contains '/Infrastructure-Setup/' %}open{% endif %}>
+          <summary>Infrastructure Setup</summary>
+
+          <div class="nested">
+            <a href="{{ '/Infrastructure-Setup/index.html' | relative_url }}">
+              Overview
+            </a>
+
+            <a href="{{ '/Infrastructure-Setup/SSH-Key-Setup.html' | relative_url }}"
+               {% if page.url contains 'SSH-Key-Setup' %}class="active"{% endif %}>
+              SSH Key Setup
+            </a>
+
+            <a href="{{ '/Infrastructure-Setup/SSH.html' | relative_url }}"
+               {% if page.url contains '/SSH.html' %}class="active"{% endif %}>
+              SSH
+            </a>
+
+            <a href="{{ '/Infrastructure-Setup/SSH-Tunneling-Forwarding.html' | relative_url }}"
+               {% if page.url contains 'SSH-Tunneling-Forwarding' %}class="active"{% endif %}>
+              SSH Tunneling
+            </a>
+
+            <a href="{{ '/Infrastructure-Setup/Screen.html' | relative_url }}"
+               {% if page.url contains 'Screen' %}class="active"{% endif %}>
+              Screen
+            </a>
+
+            <a href="{{ '/Infrastructure-Setup/Service-Manipulation.html' | relative_url }}"
+               {% if page.url contains 'Service-Manipulation' %}class="active"{% endif %}>
+              Service Manipulation
+            </a>
+
+            <a href="{{ '/Infrastructure-Setup/IPTables.html' | relative_url }}"
+               {% if page.url contains 'IPTables' %}class="active"{% endif %}>
+              IPTables
+            </a>
+
+            <a href="{{ '/Infrastructure-Setup/TCPDump-TCPReplay.html' | relative_url }}"
+               {% if page.url contains 'TCPDump-TCPReplay' %}class="active"{% endif %}>
+              TCPDump & TCPReplay
+            </a>
+
+            <a href="{{ '/Infrastructure-Setup/Sliver.html' | relative_url }}"
+               {% if page.url contains 'Sliver' %}class="active"{% endif %}>
+              Sliver
+            </a>
+          </div>
+        </details>
+
+        <details>
+          <summary>Initial Access</summary>
+          <div class="nested">
+            <div class="coming-soon">Coming soon</div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Situational Awareness</summary>
+          <div class="nested">
+            <div class="coming-soon">Coming soon</div>
+          </div>
+        </details>
+
+        <details>
+          <summary>User-Level Persistence</summary>
+          <div class="nested">
+            <div class="coming-soon">Coming soon</div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Escalation</summary>
+          <div class="nested">
+            <div class="coming-soon">Coming soon</div>
+          </div>
+        </details>
+
+      </nav>
+    </aside>
+
+    <main>
+      <section id="main_content">
+        {{ content }}
+      </section>
+    </main>
+
+  </div>
+
+</body>
+</html>
+
