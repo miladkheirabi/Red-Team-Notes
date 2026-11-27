@@ -81,7 +81,7 @@ For a focused query:
 Get-HotFix -Id KB503xxxx
 ```
 
-Replace the example identifier with the update you are checking. `Get-HotFix` does not necessarily provide a complete inventory of every update mechanism or component servicing state. Correlate its output with the OS build and other available patch-management evidence.
+Replace the example identifier with the update you are checking. If PowerShell reports `GetHotFixNoEntriesFound`, the requested KB was not found in the `Win32_QuickFixEngineering` inventory exposed by `Get-HotFix`. This does not conclusively prove that the update is absent: `Get-HotFix` does not provide a complete inventory of every update mechanism or component servicing state. Correlate its output with the OS build, update history, and other available patch-management evidence.
 
 ## 4. Research the Build Number
 
@@ -185,7 +185,33 @@ Get-Process -Name regedit -ErrorAction SilentlyContinue
 
 The presence of a process such as `regedit.exe`, `services.msc`, or `ncpa.cpl` may indicate that a user is performing administrative or configuration-related work. It does **not** prove that the current account is an Administrator. The process may have been launched by another user, through elevation, or in a different session.
 
-## 7. Verify the Current Security Context
+## 7. Check the Last Boot Time
+
+When access to a host is interrupted and a callback later resumes, checking whether the machine rebooted can help distinguish a possible restart from a network or agent-communication issue.
+
+A quick filesystem-based check is:
+
+```cmd
+dir /a C:\pagefile.sys
+```
+
+The listing includes the file's last-modified timestamp. On many systems, the page file's timestamp can provide a rough clue about the last system start, but it is **not a definitive boot-time record**. Pagefile configuration, file recreation, system behavior, and timestamp changes can affect the result. The file may also be absent or configured differently.
+
+A more direct method is to query the operating system:
+
+```powershell
+(Get-CimInstance Win32_OperatingSystem).LastBootUpTime
+```
+
+For a readable result:
+
+```powershell
+(Get-CimInstance Win32_OperatingSystem).LastBootUpTime.ToString("yyyy-MM-dd HH:mm:ss")
+```
+
+Treat the pagefile timestamp as a quick heuristic and `LastBootUpTime` as the preferred system-reported value. Neither alone proves why a callback stopped. Correlate the time with endpoint logs, agent state, network telemetry, and other available evidence.
+
+## 8. Verify the Current Security Context
 
 Do not infer privileges from the applications a user has open. Check the actual security context.
 
@@ -204,7 +230,7 @@ PowerShell can also show the current identity:
 
 Useful indicators include membership in the local Administrators group, the integrity level, and enabled privileges. Membership alone may not tell the whole story because User Account Control (UAC), filtered administrator tokens, service accounts, and process elevation can affect effective access.
 
-## 8. Practical Enumeration Checklist
+## 9. Practical Enumeration Checklist
 
 Record the following during an authorized assessment:
 
@@ -213,6 +239,7 @@ Record the following during an authorized assessment:
 - OS architecture.
 - Installed hotfixes and relevant security updates.
 - Running processes and their owners, where available.
+- Last boot time, including the method used to obtain it.
 - Current user, group memberships, integrity level, and privileges.
 - Relevant administrative tools and management consoles in use.
 

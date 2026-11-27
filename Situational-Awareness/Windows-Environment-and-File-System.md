@@ -127,7 +127,49 @@ Get-ChildItem -Force $env:USERPROFILE
 
 `-Force` includes hidden items in the listing; it does not bypass filesystem permissions.
 
-## 3. Important Windows Directories and Files
+## 3. Enumerate Available Drives
+
+Start with a quick list of drive letters visible to the system:
+
+```cmd
+fsutil fsinfo drives
+```
+
+Example output:
+
+```text
+Drives: C:\ D:\ E:\ Z:\
+```
+
+For additional information about logical disks, WMIC can query the `Win32_LogicalDisk` class:
+
+```cmd
+wmic logicaldisk get caption,description,drivetype,filesystem,freespace,size,volumename
+```
+
+`wmic` is deprecated and may not be available on newer Windows installations. The PowerShell/CIM equivalent is:
+
+```powershell
+Get-CimInstance Win32_LogicalDisk |
+    Select-Object DeviceID, Description, DriveType,
+                  FileSystem, FreeSpace, Size, VolumeName
+```
+
+The `DriveType` field commonly uses these values:
+
+| Value | Meaning |
+|---:|---|
+| `0` | Unknown |
+| `1` | No root directory |
+| `2` | Removable disk |
+| `3` | Local disk |
+| `4` | Network drive |
+| `5` | Compact disc |
+| `6` | RAM disk |
+
+`fsutil fsinfo drives` is useful for quickly identifying drive letters. The logical-disk query provides more detail, but neither command should be treated as a complete inventory of every storage device or volume configuration.
+
+## 4. Important Windows Directories and Files
 
 The following locations are commonly useful when understanding a Windows installation.
 
