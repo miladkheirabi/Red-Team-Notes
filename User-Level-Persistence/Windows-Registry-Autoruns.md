@@ -7,7 +7,7 @@ title: Windows Registry Autoruns
 
 Windows provides several mechanisms for launching applications automatically during sign-in or system startup. Registry-based autorun locations are particularly relevant when reviewing persistence configuration and understanding which programs are configured to start for a user or across the machine.
 
-This guide focuses on read-only enumeration and defensive assessment. Any validation that changes startup configuration must be explicitly authorized.
+This guide covers Windows autorun mechanisms from an offensive security perspective, focusing on identifying persistence opportunities, analyzing execution paths, and understanding how user-level persistence can be established and leveraged during authorized engagements.
 
 ## 1. Registry Structure
 
