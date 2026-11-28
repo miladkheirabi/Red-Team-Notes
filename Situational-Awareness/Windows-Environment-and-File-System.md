@@ -148,6 +148,56 @@ icacls "C:\Program Files"
 
 For privilege-escalation research, check whether a privileged process loads files from directories writable by the current user.
 
+### Registry Hive Files
+
+The registry's on-disk hive files are commonly stored in:
+
+```text
+C:\Windows\System32\config\
+```
+
+Important hive names include:
+
+| Hive file | General scope |
+|---|---|
+| `SAM` | Local account database |
+| `SYSTEM` | System configuration, including service and control-set data |
+| `SECURITY` | Local security policy and security-related data |
+| `SOFTWARE` | Machine-wide software and Windows configuration |
+| `DEFAULT` | Default user profile settings used by the system |
+
+These files are protected operating-system resources. Their presence and paths are useful context, but ordinary users generally cannot read them directly. Do not assume that knowing a path grants access.
+
+### Startup Folders
+
+Windows supports per-user and all-users Startup folders.
+
+Current user's Startup folder:
+
+```text
+%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup
+```
+
+Common all-users Startup folder:
+
+```text
+C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp
+```
+
+Inspect the current user's folder:
+
+```cmd
+dir "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
+```
+
+Inspect the common Startup folder:
+
+```cmd
+dir "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp"
+```
+
+These locations are relevant when enumerating programs configured to run at user sign-in. A shortcut or file's presence does not by itself prove that it executes successfully; inspect its target, file type, permissions, and execution context.
+
 ## 5. File and Permission Enumeration
 
 List files, including hidden and system items:
@@ -200,3 +250,33 @@ reg query "HKEY_USERS\<SID>\Software\Microsoft\Windows\CurrentVersion\Explorer\M
 ```
 
 These entries are historical artifacts, not a reliable list of currently connected or accessible resources.
+
+## 7. Quick Reference
+
+| Task | Command |
+|---|---|
+| List environment variables | `set` |
+| List environment variables in PowerShell | `Get-ChildItem Env:` |
+| Show current user profile | `echo %USERPROFILE%` |
+| List user profiles and SIDs | `Get-CimInstance Win32_UserProfile \| Select-Object LocalPath, SID, Loaded` |
+| List logical drives | `fsutil fsinfo drives` |
+| Get logical disk details | `Get-CimInstance Win32_LogicalDisk` |
+| List volumes and mount points | `Get-Volume` / `mountvol` |
+| List hidden and system files | `dir /a` |
+| Inspect file or directory ACLs | `icacls "C:\Path\To\File"` |
+| Query MountPoints2 | `reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\MountPoints2" /s` |
+| List current user's Startup folder | `dir "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"` |
+| List all-users Startup folder | `dir "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp"` |
+
+## 8. Enumeration Checklist
+
+- [ ] Record relevant environment variables, especially `USERPROFILE`, `APPDATA`, `LOCALAPPDATA`, `TEMP`, `ProgramData`, and `PATH`.
+- [ ] Enumerate user profiles and their SIDs.
+- [ ] Identify available logical drives, volume types, filesystems, and mount points.
+- [ ] Review relevant Windows and application directories.
+- [ ] Inspect the hosts file when it is within scope.
+- [ ] Identify the Registry hive files and their locations; do not assume they are readable.
+- [ ] Enumerate per-user and all-users Startup folders.
+- [ ] Review hidden files and relevant filesystem ACLs.
+- [ ] Query `MountPoints2` for historical volume and location artifacts.
+- [ ] Distinguish between an artifact's presence and confirmed accessibility or execution.
