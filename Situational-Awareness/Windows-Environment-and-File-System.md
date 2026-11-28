@@ -270,13 +270,13 @@ These entries are historical artifacts, not a reliable list of currently connect
 
 ## 8. Enumeration Checklist
 
-- [ ] Record relevant environment variables, especially `USERPROFILE`, `APPDATA`, `LOCALAPPDATA`, `TEMP`, `ProgramData`, and `PATH`.
-- [ ] Enumerate user profiles and their SIDs.
-- [ ] Identify available logical drives, volume types, filesystems, and mount points.
-- [ ] Review relevant Windows and application directories.
-- [ ] Inspect the hosts file when it is within scope.
-- [ ] Identify the Registry hive files and their locations; do not assume they are readable.
-- [ ] Enumerate per-user and all-users Startup folders.
-- [ ] Review hidden files and relevant filesystem ACLs.
-- [ ] Query `MountPoints2` for historical volume and location artifacts.
-- [ ] Distinguish between an artifact's presence and confirmed accessibility or execution.
+- Record relevant environment variables, especially `USERPROFILE`, `APPDATA`, `LOCALAPPDATA`, `TEMP`, `ProgramData`, and `PATH`.
+- Enumerate user profiles and their SIDs.
+- Identify available logical drives, volume types, filesystems, and mount points.
+- Review relevant Windows and application directories.
+- Inspect the hosts file when it is within scope.
+- Identify the Registry hive files and their locations; do not assume they are readable.
+- Enumerate per-user and all-users Startup folders.
+- Review hidden files and relevant filesystem ACLs.
+- Query `MountPoints2` for historical volume and location artifacts.
+- Distinguish between an artifact's presence and confirmed accessibility or execution.
