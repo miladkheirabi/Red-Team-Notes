@@ -230,7 +230,48 @@ PowerShell can also show the current identity:
 
 Useful indicators include membership in the local Administrators group, the integrity level, and enabled privileges. Membership alone may not tell the whole story because User Account Control (UAC), filtered administrator tokens, service accounts, and process elevation can affect effective access.
 
-## 9. Practical Enumeration Checklist
+## User and Account Enumeration
+
+Identifying the current user and local account privileges helps determine the security context of the current session and identify accounts with elevated access.
+
+### Current User
+
+Display the username associated with the current process:
+
+```cmd
+echo %USERNAME%
+```
+
+This returns the username stored in the `USERNAME` environment variable. It identifies the account context of the current process, which may differ from the user currently logged into the interactive desktop.
+
+### 9. Network Login Information
+
+Retrieve information about network login accounts:
+
+```cmd
+wmic netlogin get Name,NumberOfLogons
+```
+
+- `Name`: Domain and username associated with the network login account.
+- `NumberOfLogons`: Number of times the account has logged on, as reported by the provider.
+
+This queries the `Win32_NetworkLogin` class. It does not provide a complete list of local Windows accounts.
+
+> **Note:** WMIC is deprecated and may not be available on newer Windows installations.
+
+### Local Administrators
+
+Enumerate members of the local Administrators group:
+
+```cmd
+net localgroup "Administrators"
+```
+
+The output lists local and domain accounts or groups that are members of the local Administrators group.
+
+Membership in this group indicates administrative privileges on the local machine, subject to applicable security restrictions and token configuration.
+
+## 10. Practical Enumeration Checklist
 
 Record the following during an authorized assessment:
 
